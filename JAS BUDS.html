@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>JAS BUDS | Premium Wireless Earbuds</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #0A0C12;
+      color: #EFF3F6;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1E1F2A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D4AF37;
+      border-radius: 10px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .navbar {
+      background: rgba(13, 15, 23, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #232534;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.9rem 0;
+    }
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #FFFFFF 0%, #D4AF37 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .logo:hover {
+      opacity: 0.9;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: #C0C5D0;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      padding: 0.4rem 0;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: #D4AF37;
+    }
+    .cart-icon {
+      position: relative;
+      font-size: 1.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #EFF3F6;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .cart-count {
+      background: #D4AF37;
+      color: #0A0C12;
+      font-size: 0.7rem;
+      font-weight: bold;
+      border-radius: 30px;
+      padding: 0.15rem 0.45rem;
+      position: absolute;
+      top: -10px;
+      right: -14px;
+      min-width: 20px;
+      text-align: center;
+    }
+    .user-greeting {
+      font-size: 0.85rem;
+      color: #D4AF37;
+      background: #1E212C;
+      padding: 0.3rem 0.8rem;
+      border-radius: 40px;
+    }
+    .logout-btn {
+      background: #2A2D3A;
+      border: none;
+      padding: 0.3rem 0.9rem;
+      border-radius: 30px;
+      color: #FFB4A2;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .btn-primary {
+      background: #D4AF37;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #0A0C12;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+    }
+    .btn-primary:hover {
+      background: #c4a032;
+      transform: scale(0.98);
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    .product-card {
+      background: #13161F;
+      border-radius: 28px;
+      padding: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: 1px solid #23242F;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: #D4AF3750;
+      box-shadow: 0 20px 30px -12px rgba(212, 175, 55, 0.2);
+    }
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: #0B0D14;
+      border-radius: 24px;
+      padding: 0.5rem;
+    }
+    .product-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 0.8rem;
+    }
+    .price {
+      color: #008000;
+      font-weight: 800;
+      font-size: 1.3rem;
+      margin: 0.6rem 0;
+    }
+    .category-badge {
+      background: #232534;
+      border-radius: 30px;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.7rem;
+      color: #BBC3D0;
+      display: inline-block;
+    }
+    /* Filter bar: mobile-friendly horizontal scroll */
+    .filter-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.8rem 0 1rem;
+    }
+    .search-input {
+      background: #1A1C26;
+      border: 1px solid #2A2D3A;
+      padding: 0.7rem 1rem;
+      border-radius: 48px;
+      color: white;
+      width: 100%;
+      outline: none;
+    }
+    .search-input:focus {
+      border-color: #D4AF37;
+    }
+    .filter-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      white-space: nowrap;
+      padding-bottom: 6px;
+    }
+    .filter-group::-webkit-scrollbar {
+      display: none;
+    }
+    .filter-chip {
+      flex-shrink: 0;
+      white-space: nowrap;
+      background: #1A1C26;
+      padding: 0.45rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.1s;
+      color: #C0C5D0;
+    }
+    .filter-chip.active-filter {
+      background: #D4AF37;
+      color: #0A0C12;
+      font-weight: 600;
+    }
+    @media (min-width: 768px) {
+      .search-input {
+        width: 260px;
+      }
+      .filter-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .filter-group {
+        flex: 1;
+        justify-content: flex-end;
+      }
+    }
+    .details-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    @media (min-width: 768px) {
+      .details-wrapper {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+    .detail-image img {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 32px;
+      background: #10121C;
+    }
+    .features-list {
+      margin: 1rem 0 1rem 1.2rem;
+    }
+    .cart-item {
+      background: #13161F;
+      border-radius: 24px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .cart-img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .qty-btn {
+      background: #2A2D3A;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 30px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #FF8A7A;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .cart-summary {
+      background: #13161F;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      text-align: right;
+    }
+    .cart-summary .price {
+      color: #008000;
+    }
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #D4AF37;
+      color: #0A0C12;
+      padding: 0.7rem 1.5rem;
+      border-radius: 60px;
+      font-weight: 600;
+      z-index: 1100;
+      animation: fadeInUp 0.3s ease;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px);}
+      to { opacity: 1; transform: translateX(-50%) translateY(0);}
+    }
+    .auth-container {
+      max-width: 420px;
+      margin: 3rem auto;
+      background: #13161F;
+      padding: 2rem;
+      border-radius: 32px;
+      border: 1px solid #2A2E40;
+    }
+    .auth-input {
+      width: 100%;
+      background: #1E212C;
+      border: 1px solid #2F3342;
+      padding: 0.9rem;
+      border-radius: 28px;
+      margin: 0.7rem 0;
+      color: white;
+    }
+    .error-msg {
+      color: #FF8A8A;
+      font-size: 0.75rem;
+    }
+    .back-link {
+      background: none;
+      border: none;
+      color: #D4AF37;
+      cursor: pointer;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid #20222E;
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      color: #9AA2B5;
+    }
+  </style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container">
+    <div class="nav-wrapper">
+      <div class="logo" id="logoHome">JAS BUDS</div>
+      <div class="nav-links">
+        <button class="nav-btn" data-nav="shop">Shop</button>
+        <button class="nav-btn" data-nav="cart">Cart</button>
+        <div id="userArea"></div>
+        <div style="position: relative;">
+          <button class="cart-icon" id="navbarCartBtn">
+            🛒 <span class="cart-count" id="cartBadge">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <p>🇵🇭 JAS BUDS - Your Sound, Your Way</p>
+</footer>
+
+<script>
+  // ========== PRODUCT DATA (8 earbuds) ==========
+  const PRODUCTS = [
+    { id: "p1", name: "CloudPods Mini", shortDesc: "Ultra-light, 30h battery", description: "Lightweight and compact, CloudPods Mini deliver a comfortable fit with impressive battery life. Perfect for all-day listening.", features: ["30hr total playback", "Ultra-light design", "IPX4 splash resistant", "Touch controls"], price: 400, image: "https://cdn-img.oraimo.com/GH/product/2024/11/01/spacebuds-z-otw-625-en-black.png", category: "popular" },
+    { id: "p2", name: "ShadowBuds Pro", shortDesc: "Hi-Fi sound, wireless charging", description: "Studio-tuned audio with premium wireless charging case. Experience deep bass and crystal-clear highs in a sleek form.", features: ["Wireless charging", "Hi-Fi sound", "Low latency mode", "28hr battery"], price: 650, image: "https://static.vecteezy.com/system/resources/thumbnails/072/240/657/small/black-wireless-earbuds-and-charging-case-on-dark-background-modern-technology-and-audio-equipment-photo.jpeg", category: "featured" },
+    { id: "p3", name: "AeroPods Lite", shortDesc: "Everyday comfort, rich bass", description: "Designed for daily use with ergonomic shape and punchy bass. Simple, reliable, and affordable.", features: ["Rich bass", "Ergonomic fit", "20hr playback", "Fast pairing"], price: 300, image: "https://images.jdmagicbox.com/quickquotes/images_main/bohpairdopes-300chrome-whit-272844036-tvs3occy.png", category: "popular" },
+    { id: "p4", name: "PulseBuds X", shortDesc: "Dynamic bass, low latency", description: "PulseBuds X bring powerful low-end response and gaming-grade low latency. Ideal for music lovers and mobile gamers.", features: ["Extra dynamic bass", "Low latency mode", "32hr total playback", "USB-C fast charge"], price: 350, image: "https://www.androidauthority.com/wp-content/uploads/2025/06/viaim-recdot-ai-earbuds.jpg", category: "featured" },
+    { id: "p5", name: "Aurix One", shortDesc: "Premium flagship, 45dB ANC", description: "The pinnacle of sound engineering. Hybrid ANC up to 45dB, luxurious materials, and immersive spatial audio.", features: ["45dB Hybrid ANC", "Spatial audio", "40hr battery", "Wireless charging"], price: 700, image: "https://final-inc.com/cdn/shop/files/231201_P-page_SD_ZE8000_03.jpg?v=1702435727&width=1500", category: "flagship" },
+    { id: "p6", name: "FlexHook Pro", shortDesc: "Gaming grade, 30ms latency", description: "Ultra-low 30ms latency for competitive gaming. RGB accents and customizable EQ via companion app.", features: ["30ms ultra-low latency", "RGB lighting", "45hr total", "Multi-device pairing"], price: 900, image: "https://digitalwalker.ph/cdn/shop/files/CMFTWSBUDSDARKGREY1_1000x1000.png?v=1722324058", category: "flagship" },
+    { id: "p7", name: "PearlsBuds Lite", shortDesc: "Open-ear, spatial audio", description: "Open-ear design lets you stay aware of surroundings while enjoying spacious sound. Perfect for outdoor activities.", features: ["Open-ear comfort", "Spatial audio", "27hr battery", "Secure-fit wings"], price: 800, image: "https://mobilewalay.pk/cdn/shop/files/SpaceBuds_Neo_OTW-323P_White.jpg?v=1767873543&width=1024", category: "popular" },
+    { id: "p8", name: "Cyberbuds X", shortDesc: "Compact, smart touch", description: "Sleek cyberpunk-inspired design with intuitive smart touch controls. Great for urban lifestyles.", features: ["Smart touch panel", "Compact case", "24hr playback", "Bluetooth 5.3"], price: 300, image: "https://vertu.uz/uploads/collections/headphones/805b754a571d.webp", category: "everyday" }
+  ];
+
+  // ---------- GLOBALS ----------
+  let currentUser = null;
+  let cart = [];
+  let currentView = 'home';
+  let selectedProductId = null;
+  let activeFilter = 'all';
+  let searchQuery = '';
+
+  // ---------- PERSISTENCE ----------
+  function saveUserSession(user) { if(user) localStorage.setItem("user", JSON.stringify(user)); else localStorage.removeItem("user"); }
+  function loadUserSession() { const u = localStorage.getItem("user"); currentUser = u ? JSON.parse(u) : null; }
+  function saveCart() { localStorage.setItem("cart", JSON.stringify(cart)); }
+  function loadCart() { const stored = localStorage.getItem("cart"); cart = stored ? JSON.parse(stored) : []; }
+
+  function addToCart(productId, qty = 1) {
+    const existing = cart.find(i => i.id === productId);
+    if(existing) existing.quantity += qty;
+    else cart.push({ id: productId, quantity: qty });
+    saveCart();
+    updateCartBadge();
+    const product = PRODUCTS.find(p => p.id === productId);
+    showToast(`✓ ₱${product?.price} ${product?.name} added`);
+    if(currentView === 'cart') renderCartPage();
+    if(currentView === 'checkout') renderCheckoutPage();
+  }
+
+  function updateQuantity(productId, newQty) {
+    const idx = cart.findIndex(i => i.id === productId);
+    if(idx !== -1) {
+      if(newQty <= 0) cart.splice(idx,1);
+      else cart[idx].quantity = newQty;
+      saveCart();
+      updateCartBadge();
+      if(currentView === 'cart') renderCartPage();
+      if(currentView === 'checkout') renderCheckoutPage();
+    }
+  }
+  function removeItem(productId) {
+    cart = cart.filter(i => i.id !== productId);
+    saveCart();
+    updateCartBadge();
+    if(currentView === 'cart') renderCartPage();
+    if(currentView === 'checkout') renderCheckoutPage();
+  }
+
+  function getCartItemsWithDetails() {
+    return cart.map(item => {
+      const product = PRODUCTS.find(p => p.id === item.id);
+      return { ...item, product };
+    }).filter(i => i.product);
+  }
+  function cartTotal() {
+    return getCartItemsWithDetails().reduce((sum, i) => sum + (i.product.price * i.quantity), 0);
+  }
+  function updateCartBadge() {
+    const totalQty = cart.reduce((sum,i)=> sum + i.quantity, 0);
+    const badge = document.getElementById('cartBadge');
+    if(badge) badge.innerText = totalQty > 0 ? totalQty : '0';
+  }
+
+  let toastTimeout;
+  function showToast(msg, duration=2200) {
+    const existing = document.querySelector('.toast');
+    if(existing) existing.remove();
+    const toastDiv = document.createElement('div');
+    toastDiv.className = 'toast';
+    toastDiv.innerText = msg;
+    document.body.appendChild(toastDiv);
+    if(toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => toastDiv.remove(), duration);
+  }
+
+  function updateNavbarUser() {
+    const userArea = document.getElementById('userArea');
+    if(!userArea) return;
+    if(currentUser) {
+      userArea.innerHTML = `<span class="user-greeting">👋 ${currentUser.name}</span><button id="logoutNavBtn" class="logout-btn">Logout</button>`;
+      document.getElementById('logoutNavBtn')?.addEventListener('click', () => {
+        currentUser = null;
+        saveUserSession(null);
+        updateNavbarUser();
+        showToast("Logged out");
+        navigateTo('auth');
+      });
+    } else {
+      userArea.innerHTML = `<button class="nav-btn" id="loginNavBtn" style="color:#D4AF37;">Sign in</button>`;
+      document.getElementById('loginNavBtn')?.addEventListener('click', () => navigateTo('auth'));
+    }
+  }
+
+  function navigateTo(view, productId = null) {
+    if(!currentUser && view !== 'auth' && view !== 'login' && view !== 'signup') {
+      view = 'auth';
+      showToast("Please sign in first");
+    }
+    currentView = view;
+    if(productId) selectedProductId = productId;
+    render();
+  }
+
+  function render() {
+    if(!currentUser && currentView !== 'auth') currentView = 'auth';
+    if(currentView === 'auth') renderAuthPage();
+    else if(currentView === 'home') renderHomePage();
+    else if(currentView === 'details') renderDetailsPage();
+    else if(currentView === 'cart') renderCartPage();
+    else if(currentView === 'checkout') renderCheckoutPage();
+    else if(currentView === 'success') renderSuccessPage();
+    else renderHomePage();
+    
+    document.querySelectorAll('.nav-btn[data-nav]').forEach(btn => {
+      const navVal = btn.getAttribute('data-nav');
+      if((navVal === 'shop' && currentView === 'home') || (navVal === 'cart' && currentView === 'cart')) 
+        btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+  }
+
+  // ----- AUTH PAGE (unchanged) -----
+  let authMode = 'login';
+  function renderAuthPage() {
+    const container = document.getElementById('app');
+    const isLogin = (authMode === 'login');
+    container.innerHTML = `
+      <div class="container">
+        <div class="auth-container">
+          <h2 style="margin-bottom:1rem;">${isLogin ? 'Welcome to JAS BUDS' : 'Create Account'}</h2>
+          <form id="authForm">
+            <input type="email" id="email" class="auth-input" placeholder="Email address" required>
+            <input type="password" id="password" class="auth-input" placeholder="Password (min 6 chars)" required>
+            <div id="authError" class="error-msg"></div>
+            <button type="submit" class="btn-primary" style="width:100%; margin-top:1rem;">${isLogin ? 'Sign In' : 'Sign Up'}</button>
+          </form>
+          <p style="text-align:center; margin-top:1.5rem;">
+            ${isLogin ? "New to JAS BUDS? " : "Already have an account? "}
+            <button class="nav-btn" id="toggleAuthBtn" style="color:#D4AF37;">${isLogin ? 'Create account' : 'Log in'}</button>
+          </p>
+        </div>
+      </div>
+    `;
+    const form = document.getElementById('authForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('authError');
+      if(!email.includes('@')) { errorDiv.innerText = 'Valid email required'; return; }
+      if(password.length < 6) { errorDiv.innerText = 'Password must be 6+ characters'; return; }
+      if(isLogin) {
+        const stored = localStorage.getItem(`user_${email}`);
+        if(stored && JSON.parse(stored).password === password) {
+          const user = { email, name: email.split('@')[0] };
+          currentUser = user;
+          saveUserSession(user);
+          updateNavbarUser();
+          showToast(`Welcome back, ${user.name}!`);
+          navigateTo('home');
+        } else errorDiv.innerText = 'Invalid email or password';
+      } else {
+        if(localStorage.getItem(`user_${email}`)) {
+          errorDiv.innerText = 'Email already registered';
+          return;
+        }
+        localStorage.setItem(`user_${email}`, JSON.stringify({ email, password }));
+        const user = { email, name: email.split('@')[0] };
+        currentUser = user;
+        saveUserSession(user);
+        updateNavbarUser();
+        showToast('Account created! Welcome to JAS BUDS.');
+        navigateTo('home');
+      }
+    });
+    document.getElementById('toggleAuthBtn')?.addEventListener('click', () => {
+      authMode = isLogin ? 'signup' : 'login';
+      renderAuthPage();
+    });
+  }
+
+  // ----- HOME PAGE with search reset fix -----
+  let homeFilterBarReady = false;
+  function renderHomePage() {
+    const container = document.getElementById('app');
+    container.innerHTML = `
+      <div class="container">
+        <div class="filter-bar">
+          <input type="text" id="searchInput" class="search-input" placeholder="Search earbuds..." value="${escapeHtml(searchQuery)}">
+          <div class="filter-group" id="filterGroup">
+            <div class="filter-chip" data-filter="all">All</div>
+            <div class="filter-chip" data-filter="popular">Popular</div>
+            <div class="filter-chip" data-filter="featured">Featured</div>
+            <div class="filter-chip" data-filter="flagship">Flagship</div>
+            <div class="filter-chip" data-filter="everyday">Everyday</div>
+          </div>
+        </div>
+        <div id="productsGridContainer"></div>
+      </div>
+    `;
+
+    // Highlight active filter chip
+    const chips = document.querySelectorAll('.filter-chip');
+    chips.forEach(chip => {
+      const filterValue = chip.dataset.filter;
+      if (filterValue === activeFilter) chip.classList.add('active-filter');
+      else chip.classList.remove('active-filter');
+    });
+
+    // Attach event listeners (once)
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput && !homeFilterBarReady) {
+      searchInput.addEventListener('input', (e) => {
+        // Update search query from the input value (real-time)
+        searchQuery = e.target.value;
+        // Immediately refresh products grid
+        updateProductsGrid();
+      });
+    }
+    chips.forEach(chip => {
+      chip.removeEventListener('click', chip._listener);
+      const clickHandler = () => {
+        activeFilter = chip.dataset.filter;
+        updateProductsGrid();
+        chips.forEach(c => c.classList.remove('active-filter'));
+        chip.classList.add('active-filter');
+      };
+      chip.addEventListener('click', clickHandler);
+      chip._listener = clickHandler;
+    });
+    homeFilterBarReady = true;
+    updateProductsGrid();
+  }
+
+  function updateProductsGrid() {
+    // Apply category filter first, then text search (case-insensitive)
+    let filtered = [...PRODUCTS];
+    if (activeFilter !== 'all') {
+      filtered = filtered.filter(p => p.category === activeFilter);
+    }
+    // When searchQuery is empty, show all products (respecting category filter)
+    if (searchQuery && searchQuery.trim() !== '') {
+      const lowerQuery = searchQuery.toLowerCase();
+      filtered = filtered.filter(p => 
+        p.name.toLowerCase().includes(lowerQuery) || 
+        p.shortDesc.toLowerCase().includes(lowerQuery)
+      );
+    }
+    
+    const gridContainer = document.getElementById('productsGridContainer');
+    if (!gridContainer) return;
+    gridContainer.innerHTML = '';
+    const grid = document.createElement('div');
+    grid.className = 'products-grid';
+    if (filtered.length === 0) {
+      grid.innerHTML = '<p style="text-align:center; padding:3rem;">✨ No earbuds found. Try another search ✨</p>';
+    } else {
+      filtered.forEach(prod => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img class="product-img" src="${prod.image}" alt="${prod.name}" loading="lazy" onerror="this.src='https://picsum.photos/500/500?random=1'">
+          <div class="product-title">${prod.name}</div>
+          <div class="product-desc" style="color:#9AA2B5; font-size:0.85rem; margin:0.3rem 0;">${prod.shortDesc}</div>
+          <div class="price">₱${prod.price.toLocaleString()}</div>
+          <div><span class="category-badge">${prod.category}</span></div>
+          <button class="btn-primary add-cart-btn" style="width:100%; margin-top:14px;">Add to Cart</button>
+        `;
+        card.querySelector('.add-cart-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          addToCart(prod.id, 1);
+        });
+        card.addEventListener('click', (e) => {
+          if(e.target.classList.contains('add-cart-btn')) return;
+          navigateTo('details', prod.id);
+        });
+        grid.appendChild(card);
+      });
+    }
+    gridContainer.appendChild(grid);
+  }
+
+  // ----- DETAILS PAGE (unchanged) -----
+  function renderDetailsPage() {
+    const product = PRODUCTS.find(p => p.id === selectedProductId);
+    if(!product) return navigateTo('home');
+    const container = document.getElementById('app');
+    container.innerHTML = `
+      <div class="container">
+        <button class="back-link" id="backHomeBtn">← Back to Shop</button>
+        <div class="details-wrapper">
+          <div class="detail-image"><img src="${product.image}" alt="${product.name}" onerror="this.src='https://picsum.photos/500/500?random=2'"></div>
+          <div>
+            <h1>${product.name}</h1>
+            <p style="margin:12px 0; line-height:1.5;">${product.description}</p>
+            <ul class="features-list">${product.features.map(f => `<li>✨ ${f}</li>`).join('')}</ul>
+            <div class="price">₱${product.price.toLocaleString()}</div>
+            <button id="addToCartDetail" class="btn-primary" style="margin-top:1rem;">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.getElementById('backHomeBtn').addEventListener('click', () => navigateTo('home'));
+    document.getElementById('addToCartDetail').addEventListener('click', () => addToCart(product.id, 1));
+  }
+
+  // ----- CART, CHECKOUT, SUCCESS (unchanged logic) -----
+  function renderCartPage() {
+    const cartItems = getCartItemsWithDetails();
+    const container = document.getElementById('app');
+    if(cartItems.length === 0) {
+      container.innerHTML = `<div class="container" style="text-align:center; padding:4rem 0;"><h3>🛒 Your cart is empty</h3><button class="btn-primary" id="continueShoppingBtn">Shop JAS BUDS</button></div>`;
+      document.getElementById('continueShoppingBtn')?.addEventListener('click', () => navigateTo('home'));
+      return;
+    }
+    let itemsHtml = '';
+    cartItems.forEach(item => {
+      itemsHtml += `
+        <div class="cart-item" data-id="${item.product.id}">
+          <div class="cart-item-info">
+            <img class="cart-img" src="${item.product.image}" alt="${item.product.name}" onerror="this.src='https://picsum.photos/70/70?random=3'">
+            <div><strong>${item.product.name}</strong><br>₱${item.product.price.toLocaleString()}</div>
+          </div>
+          <div class="qty-control">
+            <button class="qty-btn" data-id="${item.product.id}" data-delta="-1">-</button>
+            <span>${item.quantity}</span>
+            <button class="qty-btn" data-id="${item.product.id}" data-delta="1">+</button>
+            <button class="remove-btn" data-id="${item.product.id}">Remove</button>
+          </div>
+          <div class="price" style="font-size:1.1rem;">₱${(item.product.price * item.quantity).toLocaleString()}</div>
+        </div>
+      `;
+    });
+    container.innerHTML = `
+      <div class="container">
+        <button class="back-link" id="cartBackShop">← Continue Shopping</button>
+        <h2 style="margin:1rem 0 0.5rem;">Your Cart</h2>
+        <div id="cartItemsList">${itemsHtml}</div>
+        <div class="cart-summary">
+          <h3>Total: <span class="price" style="font-size:1.8rem;">₱${cartTotal().toLocaleString()}</span></h3>
+          <button id="proceedCheckoutBtn" class="btn-primary" style="margin-top:1rem;">Proceed to Checkout</button>
+        </div>
+      </div>
+    `;
+    document.getElementById('cartBackShop')?.addEventListener('click', () => navigateTo('home'));
+    document.querySelectorAll('.qty-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = btn.dataset.id;
+        const delta = parseInt(btn.dataset.delta);
+        const item = cart.find(i => i.id === id);
+        if(item) updateQuantity(id, item.quantity + delta);
+      });
+    });
+    document.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', () => removeItem(btn.dataset.id));
+    });
+    document.getElementById('proceedCheckoutBtn')?.addEventListener('click', () => navigateTo('checkout'));
+  }
+
+  function renderCheckoutPage() {
+    const cartItems = getCartItemsWithDetails();
+    if(cartItems.length === 0) return navigateTo('cart');
+    const total = cartTotal();
+    const container = document.getElementById('app');
+    container.innerHTML = `
+      <div class="container">
+        <button class="back-link" id="backToCartBtn">← Back to Cart</button>
+        <div style="background:#13161F; border-radius:28px; padding:1.8rem; margin:1.5rem 0;">
+          <h2>Secure Checkout</h2>
+          <p style="margin: 0.5rem 0 1rem;">Hello ${currentUser?.name}, review your order</p>
+          <hr style="border-color:#2A2D3A;">
+          <div id="checkoutSummary"></div>
+          <hr style="border-color:#2A2D3A;">
+          <div style="text-align:right; margin-top:1.5rem;"><strong>Total:</strong> <span class="price" style="font-size:1.6rem;">₱${total.toLocaleString()}</span></div>
+          <button id="placeOrderBtn" class="btn-primary" style="width:100%; margin-top:1.5rem;">Place Order • ₱${total.toLocaleString()}</button>
+        </div>
+      </div>
+    `;
+    const summaryDiv = document.getElementById('checkoutSummary');
+    cartItems.forEach(item => {
+      const div = document.createElement('div');
+      div.style.display = 'flex'; div.style.justifyContent = 'space-between'; div.style.margin = '0.8rem 0';
+      div.innerHTML = `<span>${item.product.name} x ${item.quantity}</span><span>₱${(item.product.price * item.quantity).toLocaleString()}</span>`;
+      summaryDiv.appendChild(div);
+    });
+    document.getElementById('backToCartBtn')?.addEventListener('click', () => navigateTo('cart'));
+    document.getElementById('placeOrderBtn')?.addEventListener('click', () => {
+      cart = [];
+      saveCart();
+      updateCartBadge();
+      navigateTo('success');
+    });
+  }
+
+  function renderSuccessPage() {
+    const container = document.getElementById('app');
+    container.innerHTML = `
+      <div class="container" style="text-align:center; margin: 4rem auto;">
+        <div style="font-size: 5rem; color:#D4AF37;">✓</div>
+        <h2 style="margin: 1rem 0;">Order Confirmed!</h2>
+        <p>Thank you for shopping at JAS BUDS. Your wireless earbuds will arrive soon.</p>
+        <button id="homeAfterSuccess" class="btn-primary" style="margin-top: 2rem;">Continue Shopping</button>
+      </div>
+    `;
+    document.getElementById('homeAfterSuccess')?.addEventListener('click', () => navigateTo('home'));
+  }
+
+  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+  // ----- INIT -----
+  function init() {
+    loadUserSession();
+    loadCart();
+    updateNavbarUser();
+    updateCartBadge();
+    document.querySelectorAll('.nav-btn[data-nav]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const navTo = btn.getAttribute('data-nav');
+        if(navTo === 'shop') navigateTo('home');
+        if(navTo === 'cart') navigateTo('cart');
+      });
+    });
+    document.getElementById('logoHome')?.addEventListener('click', () => navigateTo('home'));
+    document.getElementById('navbarCartBtn')?.addEventListener('click', () => navigateTo('cart'));
+    if(currentUser) navigateTo('home');
+    else navigateTo('auth');
+  }
+  init();
+</script>
+</body>
+</html>
